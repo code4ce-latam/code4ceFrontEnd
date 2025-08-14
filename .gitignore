@@ -1,0 +1,66 @@
+# --- Node / gestores de paquetes ---
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+# --- Compilados / builds / caches ---
+dist/
+build/
+.vite/
+.esbuild/
+.rollup.cache/
+.cache/
+.storybook-out/
+storybook-static/
+coverage/
+.nyc_output/
+.vitest/
+.turbo/
+*.tsbuildinfo
+
+# --- Variables de entorno (mantén sólo el ejemplo) ---
+.env
+.env.local
+.env.*.local
+*.env
+!.env.example
+
+# --- Logs y PIDs ---
+logs/
+*.log
+*.pid
+*.seed
+*.pid.lock
+
+# --- SO / Editor ---
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Windows
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# VS Code / JetBrains
+.vscode/*
+!.vscode/extensions.json      # (opcional) comparte extensiones recomendadas
+.idea/
+*.iml
+*.sublime-project
+*.sublime-workspace
+
+# --- Archivos temporales ---
+*.swp
+*.swo
+*.tmp
+*.temp
+*.orig
+*.rej
+
+# --- (Opcional) por si importas código de Next en algún momento ---
+.next/
