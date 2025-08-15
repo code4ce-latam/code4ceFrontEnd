@@ -2,7 +2,7 @@ name: Deploy Frontend to Hetzner
 
 on:
   push:
-    branches: ['main'] # cambia si usas otra rama
+    branches: ['master'] # cambia si usas otra rama
 
 jobs:
   deploy:
