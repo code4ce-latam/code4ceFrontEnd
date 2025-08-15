@@ -44,7 +44,11 @@ export default function LoginPage() {
           <div className="mb-8">
             <h1 className="text-5xl font-black mb-6 leading-tight">Bienvenido a tu Business Hub</h1>
             <div className="text-xl text-gray-600 dark:text-gray-300 mb-8 h-8">
-              <TypewriterText text="Unlock your potential with our management tools." speed={50} className="text-xl" />
+              <TypewriterText
+                text="ecnología que impulsa tu negocio — datos, procesos y personas en un solo lugar"
+                speed={50}
+                className="text-xl"
+              />
             </div>
           </div>
         </div>
@@ -60,7 +64,7 @@ export default function LoginPage() {
                 <Building2 className="w-8 h-8 text-white" />
               </div>
               <div className="text-left">
-                <h2 className="text-2xl font-black text-gray-900 dark:text-white">Code4ce Hub</h2>
+                <h2 className="text-2xl font-black text-gray-900 dark:text-white">CODE4CE</h2>
                 <p className="text-sm text-gray-600 dark:text-gray-400">Management Platform</p>
               </div>
             </div>
