@@ -2,7 +2,7 @@ name: Deploy Frontend to Hetzner
 
 on:
   push:
-    branches: ['master'] # cambia si usas otra rama
+    branches: ['master'] # o 'main' si cambias
 
 jobs:
   deploy:
@@ -24,7 +24,7 @@ jobs:
       - name: Build
         run: npm run build
 
-      # Limpia la carpeta remota para evitar archivos viejos
+      # 1) Limpia TODO el target (incluidos restos ocultos)
       - name: Clean target folder
         uses: appleboy/ssh-action@v0.1.7
         with:
@@ -34,15 +34,40 @@ jobs:
           port: ${{ secrets.SSH_PORT }}
           script: |
             mkdir -p /var/www/code4ce/erp/frontend
+            shopt -s dotglob nullglob
             rm -rf /var/www/code4ce/erp/frontend/*
 
-      # Sube el build (dist/*) a la carpeta remota
-      - name: Upload dist
+      # 2) Sube SOLO el contenido de dist (no la carpeta dist)
+      - name: Upload dist contents
         uses: appleboy/scp-action@v0.1.7
         with:
           host: ${{ secrets.SSH_HOST }}
           username: ${{ secrets.SSH_USER }}
           key: ${{ secrets.SSH_KEY }}
           port: ${{ secrets.SSH_PORT }}
-          source: 'dist/*'
+          source: 'dist/*' # 👈 importante: el asterisco
           target: '/var/www/code4ce/erp/frontend'
+
+      # 3) Verifica que index.html quedó en el root (debug útil)
+      - name: Verify remote files
+        uses: appleboy/ssh-action@v0.1.7
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USER }}
+          key: ${{ secrets.SSH_KEY }}
+          port: ${{ secrets.SSH_PORT }}
+          script: |
+            ls -la /var/www/code4ce/erp/frontend
+            test -f /var/www/code4ce/erp/frontend/index.html && echo "index.html OK" || (echo "index.html NOT FOUND" && exit 1)
+
+      # 4) (Opcional) Recargar Nginx si lo necesitas.
+      # Quita este paso si no tienes sudo sin password configurado.
+      # - name: Reload Nginx
+      #   uses: appleboy/ssh-action@v0.1.7
+      #   with:
+      #     host: ${{ secrets.SSH_HOST }}
+      #     username: ${{ secrets.SSH_USER }}
+      #     key: ${{ secrets.SSH_KEY }}
+      #     port: ${{ secrets.SSH_PORT }}
+      #     script: |
+      #       sudo -n nginx -t && sudo -n systemctl reload nginx
