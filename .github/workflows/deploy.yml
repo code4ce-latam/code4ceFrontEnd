@@ -38,18 +38,18 @@ jobs:
             rm -rf /var/www/code4ce/erp/frontend/*
 
       # 2) Sube SOLO el contenido de dist (no la carpeta dist)
-      - name: Upload dist contents
+      - name: Upload dist
         uses: appleboy/scp-action@v0.1.7
         with:
           host: ${{ secrets.SSH_HOST }}
           username: ${{ secrets.SSH_USER }}
           key: ${{ secrets.SSH_KEY }}
           port: ${{ secrets.SSH_PORT }}
-          source: 'dist/*' # 👈 importante: el asterisco
+          source: 'dist/*'
           target: '/var/www/code4ce/erp/frontend'
 
       # 3) Verifica que index.html quedó en el root (debug útil)
-      - name: Verify remote files
+      - name: Verify deploy
         uses: appleboy/ssh-action@v0.1.7
         with:
           host: ${{ secrets.SSH_HOST }}
@@ -58,7 +58,7 @@ jobs:
           port: ${{ secrets.SSH_PORT }}
           script: |
             ls -la /var/www/code4ce/erp/frontend
-            test -f /var/www/code4ce/erp/frontend/index.html && echo "index.html OK" || (echo "index.html NOT FOUND" && exit 1)
+            test -f /var/www/code4ce/erp/frontend/index.html && echo "✅ index.html found" || (echo "❌ index.html NOT FOUND" && exit 1)
 
       # 4) (Opcional) Recargar Nginx si lo necesitas.
       # Quita este paso si no tienes sudo sin password configurado.
