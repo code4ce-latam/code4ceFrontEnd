@@ -1,21 +1,33 @@
 import { Routes, Route, Navigate } from 'react-router-dom';
-import MainLayout from '@/core/MainLayout'; // tu layout principal
-import AppRouter from '@/core/AppRouter'; // router de módulos
-import LoginPage from './modules/auth/LoginPage'; // tu login (el que pegaste)
+import MainLayout from '@/core/MainLayout';
+import AppRouter from '@/core/AppRouter';
+import LoginPage from './modules/auth/LoginPage';
+
+import RequireAuth from '@/core/RequireAuth';
+import PublicOnly from '@/core/PublicOnly';
 
 export default function App() {
   return (
     <Routes>
-      {/* pública */}
-      <Route path="/login" element={<LoginPage />} />
+      {/* pública: solo si NO estás logueado */}
+      <Route
+        path="/login"
+        element={
+          <PublicOnly>
+            <LoginPage />
+          </PublicOnly>
+        }
+      />
 
       {/* privada: todo tu sistema vive bajo /dashboard */}
       <Route
         path="/dashboard/*"
         element={
-          <MainLayout>
-            <>{null}</>
-          </MainLayout>
+          <RequireAuth>
+            <MainLayout>
+              <></>
+            </MainLayout>
+          </RequireAuth>
         }
       />
 

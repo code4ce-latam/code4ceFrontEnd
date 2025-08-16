@@ -2,33 +2,9 @@
 
 import LoginForm from '@/components/Login-form';
 import { TypewriterText } from '@/components/typewriter-text';
-import { useAuth } from '@/components/lib/auth-context';
-// import { useRouter } from 'next/navigation';
-import { useEffect } from 'react';
 import { Building2 } from 'lucide-react';
 
 export default function LoginPage() {
-  const { user, isLoading } = useAuth();
-  // const router = useRouter();
-
-  // useEffect(() => {
-  //   if (!isLoading && user) {
-  //     router.push('/dashboard');
-  //   }
-  // }, [user, isLoading, router]);
-
-  // if (isLoading) {
-  //   return (
-  //     <div className="min-h-screen flex items-center justify-center bg-gray-50 dark:bg-slate-900">
-  //       <div className="w-8 h-8 border-4 border-blue-600/30 border-t-blue-600 rounded-full animate-spin" />
-  //     </div>
-  //   );
-  // }
-
-  // if (user) {
-  //   return null; // Will redirect to dashboard
-  // }
-
   return (
     <div className="min-h-screen flex bg-gray-50 dark:bg-slate-900 p-28">
       {/* Left Side - Hero Section */}
@@ -45,7 +21,7 @@ export default function LoginPage() {
             <h1 className="text-5xl font-black mb-6 leading-tight">Bienvenido a tu Business Hub</h1>
             <div className="text-xl text-gray-600 dark:text-gray-300 mb-8 h-8">
               <TypewriterText
-                text="ecnología que impulsa tu negocio — datos, procesos y personas en un solo lugar"
+                text="ecnología que impulsa tu negocio, datos, procesos y personas en un solo lugar."
                 speed={50}
                 className="text-xl"
               />

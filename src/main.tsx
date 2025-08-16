@@ -1,7 +1,8 @@
 import React from 'react';
 import { createRoot } from 'react-dom/client';
 import { BrowserRouter } from 'react-router-dom';
-import { AuthProvider } from '@/components/lib/auth-context'; // ← ESTA RUTA
+import { Provider } from 'react-redux';
+import store from '@/store/store';
 import App from './App';
 import './styles.css';
 
@@ -12,10 +13,10 @@ if (!rootElement) {
 
 createRoot(rootElement).render(
   <React.StrictMode>
-    <AuthProvider>
+    <Provider store={store}>
       <BrowserRouter>
         <App />
       </BrowserRouter>
-    </AuthProvider>
+    </Provider>
   </React.StrictMode>
 );
